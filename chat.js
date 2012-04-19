@@ -45,7 +45,7 @@ app.configure(function(){
  * 
  */	
 var io = sio.listen(app);
-//io.set('log',false);
+io.set('log',false);
 //设置session
 io.set('authorization', function(handshakeData, callback){
 	// 通过客户端的cookie字符串来获取其session数据
@@ -81,7 +81,6 @@ app.get('/',function(req,res){
 			if(err){
 				res.redirect('/');
 			}else{
-			console.info(data);
 				if(data[0]){
 					var current_u = data[0];
 					req.session.is_login = current_u.is_login;
@@ -155,6 +154,24 @@ for(var r in routes){
  * @param {Object} socket
  */
 io.sockets.on('connection', function (socket){
+	var robots = {};
+
+	db.query("select `key`,`value` from i_options where `group` = 'liaotian'", function(err, data, field){
+		if(!err){
+			for(var i=0; i<data.length; i++){
+				if(data[i].key == 'robot_people'){
+					robots['people'] = data[i].value.split(' ');
+				}else if(data[i].key == 'robot_speed'){
+					robots['speed'] = data[i].value;
+				}else if(data[i].key == 'robot_content'){
+					var temp_content = data[i].value.split('\n');
+					var j =Math.round(temp_content.length * Math.random());
+					robots['content'] = temp_content;
+				}
+			}
+			for(var i in robots.people){
+				usersWS[robots.people[i]] = robots.people[i];
+			}
 	var session = socket.handshake.session;//session
 	if(session && session.is_login && session.name){
 		var name = session.name;
@@ -199,25 +216,6 @@ io.sockets.on('connection', function (socket){
 		socket.broadcast.emit('system message', '【'+name + '】无声无息地离开了。。。');
 		refresh_online();
 	});
-	var robots = {};
-
-	db.query("select `key`,`value` from i_options where `group` = 'liaotian'", function(err, data, field){
-	console.info(data);
-		if(!err){
-			for(var i=0; i<data.length; i++){
-				if(data[i].key == 'robot_people'){
-					robots['people'] = data[i].value.split(' ');
-				}else if(data[i].key == 'robot_speed'){
-					robots['speed'] = data[i].value;
-				}else if(data[i].key == 'robot_content'){
-					var temp_content = data[i].value.split('\n');
-					var j =Math.round(temp_content.length * Math.random());
-					robots['content'] = temp_content;
-				}
-			}
-			for(var i in robots.people){
-				usersWS[robots.people[i]] = robots.people[i];
-			}
 			setInterval(function(){
 				var robot_name = robots.people[Math.round(robots.people.length * Math.random())]; 
 				var robot_content = robots.content[Math.round(robots.content.length * Math.random())];
