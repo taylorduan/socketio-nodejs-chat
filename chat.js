@@ -104,7 +104,6 @@ app.get('/',function(req,res){
 	}
 });
 app.get('/chat',function(req,res){
-	console.info(req.session);
 	if (req.session.is_login) {
 		//需要判断下是否已经登录
 		res.render('chat',{name:req.session.name});
@@ -195,6 +194,6 @@ io.sockets.on('connection', function (socket){
 //===========app listen 开始鸟~==========
 app.listen(3009, function(){
 	var addr = app.address();
-	console.info('listen on ' + addr.arrress + ':' + addr.port);
+	console.info('listen on :' + addr.port);
 });
 
