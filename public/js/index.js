@@ -139,6 +139,7 @@
 	var init = function(){
 		listener();
 		$('#btn').click(sendmessage);
+		console.info($('#btn'));
 		$('#message').keypress(function(e){
 			if (e.keyCode === 13) {
 				sendmessage();
@@ -154,7 +155,8 @@
 		html = html.replace(/>/g, '&gt;');
 		return html;
 	}
-	
-	init();
+	jQuery(function(){
+		init();
+	});
 	win.private_message = private_message;
 }(window,document,jQuery,io);

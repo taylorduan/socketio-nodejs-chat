@@ -65,7 +65,7 @@ io.set('authorization', function(handshakeData, callback){
 		});
 	}
 	else {
-		callback('nosession');
+		callback('no session');
 	}
 });
 //=========================URL=============================
@@ -96,7 +96,7 @@ app.get('/',function(req,res){
 		});
 	}else{
 		req.session.is_login = true;
-		req.session.name = 'ss';
+		req.session.name = '匿名';
 		res.redirect('/chat');
 		//var realpath = __dirname + '/views/' + url.parse('login.html').pathname;
 		//var txt = fs.readFileSync(realpath);
@@ -104,52 +104,15 @@ app.get('/',function(req,res){
 	}
 });
 app.get('/chat',function(req,res){
-//	if (req.session.is_login) {
+	console.info(req.session);
+	if (req.session.is_login) {
 		//需要判断下是否已经登录
 		res.render('chat',{name:req.session.name});
-	//}else{
-	//	res.redirect('/');
-	//}
-})
-app.post('/chat',function(req,res){
-	var name = req.body.nick;
-	if(name && name!==''){
-		req.session.name = name;//设置session
-		req.session.is_login = true;
-		res.render('chat',{name:name});
 	}else{
-		req.session.is_log = false;
-		res.end('nickname cannot null');
+		res.redirect('/');
 	}
-	
 });
-/*
-//其他内容监听，在router.json里面配置，例如help等页面
-var routes=JSON.parse(fs.readFileSync('router.json','utf8'));
-for(var r in routes){
-	app.get(r,function(tmp){
-		return function(req,res){
-			var template = tmp.template,
-				data = tmp.data,
-				render = tmp.render;
-			var realpath = __dirname + '/views/' + url.parse(template).pathname;
-			if(path.existsSync(realpath)){
-				var txt = fs.readFileSync(realpath);
-			}else{
-				
-				res.end('404'+realpath);
-				return;
-			}
-			
-			if(render){
-				res.render(txt,data);
-			}else{
-				res.end(txt);
-			}
-		}
-	}(routes[r]));
-}
-*/
+
 //===================socket链接监听=================
 /**
  * 开始socket链接监听
