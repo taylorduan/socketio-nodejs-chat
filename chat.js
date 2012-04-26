@@ -36,7 +36,7 @@ app.configure(function(){
 	app.use(express.methodOverride());
 	app.use(app.router);//要放在bodyParser之后，处理post
 	app.set('views', __dirname + '/views');
-	app.set('view engine', 'jade');
+	app.set('view engine', 'ejs');
 	app.use(express.static(__dirname + '/public'));
 });
 //=================配置socket.io=========================
@@ -95,19 +95,21 @@ app.get('/',function(req,res){
 			}
 		});
 	}else{
-		req.session.is_login = false;
-		var realpath = __dirname + '/views/' + url.parse('login.html').pathname;
-		var txt = fs.readFileSync(realpath);
-		res.end(txt);
+		req.session.is_login = true;
+		req.session.name = 'ss';
+		res.redirect('/chat');
+		//var realpath = __dirname + '/views/' + url.parse('login.html').pathname;
+		//var txt = fs.readFileSync(realpath);
+		//res.end(txt);
 	}
 });
 app.get('/chat',function(req,res){
-	if (req.session.is_login) {
+//	if (req.session.is_login) {
 		//需要判断下是否已经登录
 		res.render('chat',{name:req.session.name});
-	}else{
-		res.redirect('/');
-	}
+	//}else{
+	//	res.redirect('/');
+	//}
 })
 app.post('/chat',function(req,res){
 	var name = req.body.nick;

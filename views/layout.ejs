@@ -6,16 +6,22 @@
 	<meta name="generator" content="editplus">
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7,chrome=1" />
 	<meta content="投资分红" name="keywords">
-	<link rel="stylesheet" type="text/css" href="/www/css/u.css" media="all">
-	<link rel="shortcut icon" href="/www/image/favicon.png">
-	<script type="text/javascript" src="/www/js/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/style.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/css/u.css" media="all">
+	<script type="text/javascript" src="/js/jquery1.3.2.js"></script>
+	<script type="text/javascript" src="/js/socket.js"></script>
+	<script type="text/javascript" src="/js/index.js"></script>
+	<script type="text/javascript" src="/js/date.js"></script>
+	<script type="text/javascript">
+		var userName = '{%=name%}';
+	</script>
 </head>
 <body>
 <body>
-	<div class="wrap">
+	<div class="ll-wrap">
 	<div id="hbg">
 		<div id="navigationBar">
-			<a href="<?php echo B . '/'?>" id="navhome"><img src="/www/image/logo.png" height="52px"/></a></li>
+			<a href="/" id="navhome"><img src="/image/logo.png" height="52px"/></a></li>
 		</div>
 	</div>
 
@@ -28,19 +34,18 @@
 	
 	<div id='chat' class='clearfix'>
 		<div id="messages">
-			<div class="scrollbar" id="lines"><div class="line type-system">	<div class="message-header">		<span class="message-from">系统</span>		<span class="message-timestamp">Tue Sep 27 2011 13:48:47 GMT+0800</span>	</div>	<div class="message-text">		已进入房间!在发送的消息前面加”@对方名字“+空格+消息可以给某人发送私信。	</div></div></div>
+			<div class="scrollbar" id="lines"><div class="line">	<div class="message-header">		<span class="message-from">系统</span>		
+			<span class="message-timestamp"></span>	</div>	<div class="message-text"></div></div></div>
 		</div>
 		<div id="online" class='clearfix'>
-			<h3>在线成员列表</h3>
+			<div class="title">在线成员列表</div>
 			<div id="nicknames" class="scrollbar">
-				<div class="line">老雷</div>
-				<div class="line">神马</div>
 			</div>
 		</div>
-	</div>
-	<div id="send-message">
-		<input id="message">
-		<button onclick="sendmessage()">发送</button>
+		<div id="send-message">
+			<input id="message">
+			<button id="btn">发送</button>
+		</div>
 	</div>
 </div>
 	<div id="footer" class="clearfix">

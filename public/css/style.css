@@ -6,15 +6,10 @@ body{
 .clearfix{display:block;zoom:1;}
 .clearfix:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
 .room {
-	width: 960px;
-	left: 0;
-	border:2px solid #0087BC;
-	border-top:none;
+	left: 5px;
     margin: auto;
-    position: fixed;
-    right: 0;
-    top: 0;
-	bottom:30px;
+    position: absolute;
+    top: 103px;;
 }
 
 #connecting .wrap {
@@ -23,33 +18,34 @@ body{
 }
 #chat {
 	display: none;
+	height:400px;
 }
 #messages {
 	float: left;
 	width: 800px;
-	position:fixed;
-	bottom:35px;
-	top:0;
+	position:absolute;
+	top:-26px;
+	left:5px;
 }
 #lines {
 	overflow-y: scroll;
-	height:100%;
+	height:400px;
 }
 
 #send-message {
-	position: fixed;
-	width: 964px;
+	position: absolute;
 	height: 30px;
-	left: 0px;
+	left: 5px;
 	right: 0px;
-	bottom: 0px;
+	bottom: -20px;
 	margin: auto;
 	font-size: 14px;
+	width:900px;
 }
 #send-message #message {
 	border: 2px solid #0087BC;
 	padding: 4px;
-	width: 880px;
+	width: 700px;
 }
 #send-message button {
 	padding: 4px 10px;
@@ -97,17 +93,15 @@ body{
 #online{
 	margin-left:810px;
 	width: 150px;
-	position:fixed;
-	top:0;
-	bottom:35px;
-	marign:auto;
+	height:400px;
+	top:-26px;
+	position:absolute;
 }
 #chat #online #nicknames {
-	position:fixed;
-	top:40px;
-	bottom:35px;
+	position:absolute;
 	overflow-y: scroll;
 	width:145px;
+	height:380px;
 }
 #nicknames .line {
 	font-weight: bold;
