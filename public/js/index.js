@@ -1,6 +1,6 @@
 	var people = 0;
 
-!function(win, doc, $, io){
+!function(win, doc, $, io, people){
 
 	var socket = io.connect();
 	// 显示一条消息
@@ -145,7 +145,11 @@
 
 	var init = function(){
 		listener();
-		$('#btn').click(sendmessage);
+		$('#sbu').bind("submit",function(e){
+			e.preventDefault();
+			alert('send');
+			sendmessage();
+		});
 		$('#message').keypress(function(e){
 			if (e.keyCode === 13) {
 				sendmessage();
@@ -161,8 +165,8 @@
 		html = html.replace(/>/g, '&gt;');
 		return html;
 	}
+	init();
 	win.private_message = private_message;
 	jQuery(function(){
-	init();
 	});
 }(window,document,jQuery,io,people);
