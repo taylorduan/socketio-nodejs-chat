@@ -1,3 +1,5 @@
+	var people = 0;
+
 !function(win, doc, $, io){
 
 	var socket = io.connect();
@@ -24,14 +26,19 @@
 		'\
 	</div>\
 </div>';
-		$('#lines').append(html).scrollTop(+1000);
+	people++;
+	if(people > 100){
+		$('#lines').empty();
+		people = 0;
+	}
+		$('#lines').append(html).scrollTop(people*51+400);
 	}
 	// 显示在线列表
 	var showonline = function(n){
 		var html = '';
-		n.forEach(function(v){
-			html += '<div class="line" onclick="private_message(\'' + v + '\')">' + v + '</div>';
-		});
+		$.each(n, function(i, item){
+			html += '<div class="line" onclick="private_message(\'' + n[i] + '\')">' + n[i] + '</div>';
+		})
 		$('#nicknames').html(html);
 	}
 	
@@ -139,7 +146,6 @@
 	var init = function(){
 		listener();
 		$('#btn').click(sendmessage);
-		console.info($('#btn'));
 		$('#message').keypress(function(e){
 			if (e.keyCode === 13) {
 				sendmessage();
@@ -155,8 +161,8 @@
 		html = html.replace(/>/g, '&gt;');
 		return html;
 	}
-	jQuery(function(){
-		init();
-	});
 	win.private_message = private_message;
-}(window,document,jQuery,io);
+	jQuery(function(){
+	init();
+	});
+}(window,document,jQuery,io,people);

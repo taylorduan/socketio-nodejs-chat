@@ -43,7 +43,8 @@ app.configure(function(){
 /**
  * 配置socket.io
  * 
- */	
+ */
+ 	var nick = 98;
 var io = sio.listen(app);
 io.set('log',false);
 //设置session
@@ -75,6 +76,8 @@ io.set('authorization', function(handshakeData, callback){
  * @param {Object} res
  */
 app.get('/',function(req,res){
+
+
 	if(req.query.u){
 		var uid = req.query.u;
 		var	user = db.query("select * from i_user where `id` =" + uid,function(err, data, field){
@@ -95,8 +98,12 @@ app.get('/',function(req,res){
 			}
 		});
 	}else{
+		if(nick > 1000){
+			nick = 76;
+		}
 		req.session.is_login = true;
-		req.session.name = '匿名';
+		req.session.name = '匿名' + nick;
+		nick++;
 		res.redirect('/chat');
 		//var realpath = __dirname + '/views/' + url.parse('login.html').pathname;
 		//var txt = fs.readFileSync(realpath);
@@ -134,7 +141,7 @@ io.sockets.on('connection', function (socket){
 				}
 			}
 			for(var i in robots.people){
-				usersWS[robots.people[i]] = robots.people[i];
+				usersWS[robots.people[i]] = socket;
 			}
 	var session = socket.handshake.session;//session
 	if(session && session.is_login && session.name){
