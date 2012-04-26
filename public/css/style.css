@@ -19,6 +19,7 @@ body{
 #chat {
 	display: none;
 	height:400px;
+	width:960px;
 }
 #messages {
 	float: left;
@@ -91,14 +92,14 @@ body{
 	background-color: #ECF3FF;
 }
 #online{
-	margin-left:810px;
+	right:5px;
 	width: 150px;
 	height:400px;
 	top:-26px;
 	position:absolute;
 }
 #chat #online #nicknames {
-	position:absolute;
+	padding-left:5px;
 	overflow-y: scroll;
 	width:145px;
 	height:380px;
