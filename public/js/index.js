@@ -1,8 +1,9 @@
+;(function(win, doc, $, io){
 	var people = 0;
 
-!function(win, doc, $, io, people){
+	var people = 0;
 
-	var socket = io.connect();
+
 	// 显示一条消息
 	var showmessage = function(from, msg, type){
 		var from = formatHTML(from);
@@ -31,7 +32,7 @@
 		$('#lines').empty();
 		people = 0;
 	}
-		$('#lines').append(html).scrollTop(people*51+400);
+		$('#lines').append(html).scrollTop(10000000);
 	}
 	// 显示在线列表
 	var showonline = function(n){
@@ -110,6 +111,9 @@
 		});
 	}
 	var listener = function(){
+		if(typeof socket != 'object'){
+			socket = io.connect('http://127.0.0.1:9090');
+		}
 		socket.on('connect', function(){
 			$('.room #connecting').fadeOut();
 			$('.room #chat').fadeIn();
@@ -147,7 +151,6 @@
 		listener();
 		$('#sbu').bind("submit",function(e){
 			e.preventDefault();
-			alert('send');
 			sendmessage();
 		});
 		$('#message').keypress(function(e){
@@ -169,4 +172,4 @@
 	win.private_message = private_message;
 	jQuery(function(){
 	});
-}(window,document,jQuery,io,people);
+})(window,document,jQuery,io);

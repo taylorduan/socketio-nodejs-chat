@@ -48,27 +48,7 @@ app.configure(function(){
 var io = sio.listen(app);
 io.set('log',false);
 //设置session
-io.set('authorization', function(handshakeData, callback){
-	// 通过客户端的cookie字符串来获取其session数据
-	handshakeData.cookie = parseCookie(handshakeData.headers.cookie);
-	var connect_sid = handshakeData.cookie['connect.sid'];
-	if (connect_sid) {
-		storeMemory.get(connect_sid, function(error, session){
-			if (error) {
-				// if we cannot grab a session, turn down the connection
-				callback(error.message, false);
-			}
-			else {
-				// save the session data and accept the connection
-				handshakeData.session = session;
-				callback(null, true);
-			}
-		});
-	}
-	else {
-		callback('no session');
-	}
-});
+
 //=========================URL=============================
 /**
  * url处理开始鸟~
@@ -199,7 +179,7 @@ io.sockets.on('connection', function (socket){
 });
 
 //===========app listen 开始鸟~==========
-app.listen(3009, function(){
+app.listen(9090, function(){
 	var addr = app.address();
 	console.info('listen on :' + addr.port);
 });

@@ -9,10 +9,11 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css" media="all">
 	<link rel="stylesheet" type="text/css" href="/css/u.css" media="all">
 	<script type="text/javascript" src="/js/jquery1.3.2.js"></script>
-	<script type="text/javascript" src="/js/socket.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	
 	<script type="text/javascript" src="/js/date.js"></script>
 	<script type="text/javascript">
+		var socket = io.connect('http://127.0.0.1:9090');
 		var userName = '<%= name %>';
 	</script>
 </head>
